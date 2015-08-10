@@ -54,6 +54,7 @@ public class NewJFrame extends javax.swing.JFrame {
         public static double AptitudAcumulada[];
         public static String Rangos[];
         public  double a,b,c,d;
+         Object data [][] = new Object [numIndividuos][7];
         public static DecimalFormat decimal= new DecimalFormat("0.00");
     public NewJFrame() {
         initComponents();
@@ -73,11 +74,12 @@ public class NewJFrame extends javax.swing.JFrame {
         // Fuente de Datos
         getContentPane().add(jPanel2Graf);
         DefaultPieDataset defaultpiedataset = new DefaultPieDataset(); 
-        for (int i = 0; i < AptitudAcumulada.length; i++) {
-            defaultpiedataset.setValue("Cromo "+i+" -"+decimal.format(AptitudAcumulada[i])+"%"  , new Double(AptitudAcumulada[i]));
+       
+            
+            for (int i = 0,k=1; i < AptitudAcumulada.length; i++,k++) {
+            defaultpiedataset.setValue("Cromo "+k+" -"+decimal.format(AptitudAcumulada[i])+"%"  , new Double(AptitudAcumulada[i]));
         }
-        
- 
+
         // Creando el Grafico
         JFreeChart chart = ChartFactory.createPieChart3D("Datos de los Cromosomas", defaultpiedataset, true, true, false); 
      
@@ -131,6 +133,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel2Graf = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(51, 51, 51));
 
         Btngenerar.setText("random");
         Btngenerar.addActionListener(new java.awt.event.ActionListener() {
@@ -311,8 +314,8 @@ public class NewJFrame extends javax.swing.JFrame {
                             .addComponent(lblCromosoma)))
                     .addComponent(jPanel2Graf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
