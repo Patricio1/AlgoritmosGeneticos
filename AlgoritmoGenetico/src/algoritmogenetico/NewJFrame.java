@@ -61,7 +61,6 @@ public class NewJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        compositeEffect1 = new com.sun.animation.effects.CompositeEffect();
         Btngenerar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaContenido = new javax.swing.JTable();
@@ -574,7 +573,6 @@ public static double funcion (double coeficienteX3,double coeficienteX2,double c
     private javax.swing.JButton Btngenerar;
     private javax.swing.JComboBox cmbGrado;
     private javax.swing.JComboBox cmbNumCromomas;
-    private com.sun.animation.effects.CompositeEffect compositeEffect1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
