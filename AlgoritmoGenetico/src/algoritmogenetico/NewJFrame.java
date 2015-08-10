@@ -14,10 +14,26 @@ import static algoritmogenetico.AlgoritmoGenetico.llenarTabla;
 import static algoritmogenetico.AlgoritmoGenetico.numCromosomas;
 import static algoritmogenetico.AlgoritmoGenetico.numIndividuos;
 import static algoritmogenetico.AlgoritmoGenetico.suma;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.text.DecimalFormat;
 import java.util.Random;
 import java.util.Stack;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import org.jfree.*;
+
+
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot3D;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.util.Rotation;
 
 /**
  *
@@ -51,6 +67,39 @@ public class NewJFrame extends javax.swing.JFrame {
 //        AlgoritmoGenetico Ag = new AlgoritmoGenetico();
 //        Ag.llenarTabla(tablaContenido);
     }
+    
+   
+    public void grafica2 () {
+        // Fuente de Datos
+        getContentPane().add(jPanel2Graf);
+        DefaultPieDataset defaultpiedataset = new DefaultPieDataset(); 
+        for (int i = 0; i < AptitudAcumulada.length; i++) {
+            defaultpiedataset.setValue("Cromo "+i+" -"+decimal.format(AptitudAcumulada[i])+"%"  , new Double(AptitudAcumulada[i]));
+        }
+        
+ 
+        // Creando el Grafico
+        JFreeChart chart = ChartFactory.createPieChart3D("Datos de los Cromosomas", defaultpiedataset, true, true, false); 
+     
+        PiePlot3D pieplot3d = (PiePlot3D)chart.getPlot(); 
+        pieplot3d.setDepthFactor(0.5); 
+        pieplot3d.setStartAngle(290D); 
+        pieplot3d.setDirection(Rotation.CLOCKWISE); 
+        pieplot3d.setForegroundAlpha(0.5F); 
+                // Mostrar Grafico
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new java.awt.Dimension(300 , 250));
+        chartPanel.setBackground(Color.lightGray);
+      
+
+        jPanel2Graf.removeAll();
+        jPanel2Graf.setLayout(new FlowLayout(FlowLayout.CENTER));
+          
+        jPanel2Graf.add(chartPanel);
+           jPanel2Graf.revalidate();
+            
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,6 +128,7 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         cmbNumCromomas = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
+        jPanel2Graf = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -216,6 +266,19 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
+        jPanel2Graf.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+
+        javax.swing.GroupLayout jPanel2GrafLayout = new javax.swing.GroupLayout(jPanel2Graf);
+        jPanel2Graf.setLayout(jPanel2GrafLayout);
+        jPanel2GrafLayout.setHorizontalGroup(
+            jPanel2GrafLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+        jPanel2GrafLayout.setVerticalGroup(
+            jPanel2GrafLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 253, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -223,33 +286,33 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addComponent(Btngenerar)
-                        .addGap(26, 26, 26))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblCromosoma)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Btngenerar)
+                                .addGap(31, 31, 31)
+                                .addComponent(lblCromosoma)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2Graf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblCromosoma)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Btngenerar)
-                .addGap(190, 190, 190))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Btngenerar)
+                            .addComponent(lblCromosoma)))
+                    .addComponent(jPanel2Graf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -267,6 +330,8 @@ public class NewJFrame extends javax.swing.JFrame {
         Rangos= new String[numIndividuos];
         
         Generar();  
+       
+        grafica2();
 lblCromosoma.setText(Generar_PuntoCruce());
 
     }//GEN-LAST:event_BtngenerarActionPerformed
@@ -354,16 +419,17 @@ lblCromosoma.setText(Generar_PuntoCruce());
       }
     public  void llenarTabla( ){
          numIndividuos=Integer.valueOf(cmbNumCromomas.getSelectedItem().toString());
-        Object data [][] = new Object [numIndividuos][6];
-        String columName [] = {"CROMOSOMA","X","F(X)","APTITUD RELATIVA","ACTITUD ACUMULADA","RANGO"};
+        Object data [][] = new Object [numIndividuos][7];
+        String columName [] = {"Nª","CROMOSOMA","X","F(X)","APTITUD RELATIVA","ACTITUD ACUMULADA","RANGO"};
         for (int i = 0; i <numIndividuos ; i++) {
             for (int j = 0; j < Integer.valueOf(cmbNumCromomas.getSelectedItem().toString()); j++) {
-                data[j][0] = String.valueOf(ValorCromosoma[j]); 
-                data[j][1] = String.valueOf(ValorDecimal[j]); 
-                data[j][2] = String.valueOf(ValorFuncion[j]);
-                data[j][3] = String.valueOf(decimal.format(AptitudRelativa[j]));
-                data[j][4] = String.valueOf(decimal.format(AptitudAcumulada[j]));
-                data[j][5] = Rangos[j];
+               data[j][0] =  String.valueOf(j+1);
+                data[j][1] = String.valueOf(ValorCromosoma[j]); 
+                data[j][2] = String.valueOf(ValorDecimal[j]); 
+                data[j][3] = String.valueOf(ValorFuncion[j]);
+                data[j][4] = String.valueOf(decimal.format(AptitudRelativa[j]));
+                data[j][5] = String.valueOf(decimal.format(AptitudAcumulada[j]));
+                data[j][6] = Rangos[j];
                 
             }
         }
@@ -581,6 +647,7 @@ public static double funcion (double coeficienteX3,double coeficienteX2,double c
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2Graf;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCromosoma;
     public static javax.swing.JTable tablaContenido;
