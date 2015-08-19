@@ -17,6 +17,7 @@ import static algoritmogenetico.AlgoritmoGenetico.suma;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.net.Inet4Address;
 import java.text.DecimalFormat;
 import java.util.Random;
 import java.util.Stack;
@@ -41,7 +42,7 @@ import org.jfree.util.Rotation;
  */
 public class NewJFrame extends javax.swing.JFrame {
 
-    
+    static final int Digitos = 7;
     public static int numIndividuos;
 	public static int numCromosomas = 6;
         public static double suma=0;
@@ -53,6 +54,7 @@ public class NewJFrame extends javax.swing.JFrame {
         public static double AptitudRelativa[];
         public static double AptitudAcumulada[];
         public static String Rangos[];
+         
         public  double a,b,c,d;
          Object data [][] = new Object [numIndividuos][7];
         public static DecimalFormat decimal= new DecimalFormat("0.00");
@@ -60,11 +62,11 @@ public class NewJFrame extends javax.swing.JFrame {
         initComponents();
         txtA.setEnabled(false);
         txtB.setEnabled(false);
-        
+        this.setLocationRelativeTo(null);
         // Generar();
          
          //GenerarPuntosCruce();
-       lblCromosoma.setText(Generar_PuntoCruce());
+     //  lblCromosoma.setText(Generar_PuntoCruce());
 //        AlgoritmoGenetico Ag = new AlgoritmoGenetico();
 //        Ag.llenarTabla(tablaContenido);
     }
@@ -84,7 +86,8 @@ public class NewJFrame extends javax.swing.JFrame {
         JFreeChart chart = ChartFactory.createPieChart3D("Datos de los Cromosomas", defaultpiedataset, true, true, false); 
      
         PiePlot3D pieplot3d = (PiePlot3D)chart.getPlot(); 
-        pieplot3d.setDepthFactor(0.5); 
+        pieplot3d.setDepthFactor(0.5);
+        
         pieplot3d.setStartAngle(290D); 
         pieplot3d.setDirection(Rotation.CLOCKWISE); 
         pieplot3d.setForegroundAlpha(0.5F); 
@@ -100,6 +103,9 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel2Graf.add(chartPanel);
            jPanel2Graf.revalidate();
             
+        
+    }
+    public void resumenJtextArea(){
         
     }
 
@@ -130,12 +136,17 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         cmbNumCromomas = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
+        label1 = new java.awt.Label();
+        txtGeneracion = new javax.swing.JTextField();
         jPanel2Graf = new javax.swing.JPanel();
+        textArea1 = new java.awt.TextArea();
+        txtMayorfuncion = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("ALGORITMO GENETICO");
         setBackground(new java.awt.Color(51, 51, 51));
 
-        Btngenerar.setText("random");
+        Btngenerar.setText("Generar");
         Btngenerar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtngenerarActionPerformed(evt);
@@ -155,7 +166,8 @@ public class NewJFrame extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablaContenido);
 
-        lblCromosoma.setText("jLabel1");
+        lblCromosoma.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        lblCromosoma.setText("MAXIMIZACION====>");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -184,7 +196,7 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("N cromomas:");
+        jLabel6.setText("N Cromomas:");
 
         cmbNumCromomas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2", "3", "4" }));
         cmbNumCromomas.addItemListener(new java.awt.event.ItemListener() {
@@ -193,7 +205,11 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setText("N cromomas:");
+        jLabel7.setText("N Generaciones:");
+
+        label1.setText("Nivel de funcion:");
+
+        txtGeneracion.setText("1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -222,18 +238,23 @@ public class NewJFrame extends javax.swing.JFrame {
                                 .addComponent(txtD, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
                                 .addComponent(txtC))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(22, 22, 22)
                             .addComponent(cmbGrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(64, 64, 64)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
                                 .addComponent(cmbNumCromomas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel7))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtGeneracion)))))
                 .addContainerGap(114, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -241,19 +262,16 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(txtA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(cmbGrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(txtA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbGrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -265,8 +283,10 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(cmbNumCromomas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtGeneracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jPanel2Graf.setBorder(javax.swing.BorderFactory.createCompoundBorder());
@@ -275,12 +295,23 @@ public class NewJFrame extends javax.swing.JFrame {
         jPanel2Graf.setLayout(jPanel2GrafLayout);
         jPanel2GrafLayout.setHorizontalGroup(
             jPanel2GrafLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel2GrafLayout.setVerticalGroup(
             jPanel2GrafLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 253, Short.MAX_VALUE)
+            .addGap(0, 224, Short.MAX_VALUE)
         );
+
+        textArea1.setEditable(false);
+        textArea1.setName("jresumen"); // NOI18N
+
+        txtMayorfuncion.setBackground(new java.awt.Color(102, 255, 204));
+        txtMayorfuncion.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        txtMayorfuncion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMayorfuncionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -289,17 +320,24 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(textArea1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(Btngenerar)
-                                .addGap(31, 31, 31)
-                                .addComponent(lblCromosoma)))
+                            .addComponent(Btngenerar))
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel2Graf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2Graf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lblCromosoma)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtMayorfuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,22 +345,34 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Btngenerar)
-                            .addComponent(lblCromosoma)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2Graf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(Btngenerar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtMayorfuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCromosoma)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                    .addComponent(textArea1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
+
+        textArea1.getAccessibleContext().setAccessibleDescription("datos de las nuevas generaciones ");
+        txtMayorfuncion.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtngenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtngenerarActionPerformed
-
+int generacion ;
+textArea1.setText("*****computacion evolutiva*****"+"\n");
+generacion = Integer.parseInt(txtGeneracion.getText());
+        for (int i = 0; i < generacion; i++) {
         numIndividuos=Integer.valueOf(cmbNumCromomas.getSelectedItem().toString());
        individuos = new int [numIndividuos][numCromosomas];
          ValorCromosoma= new String[numIndividuos];
@@ -331,12 +381,33 @@ public class NewJFrame extends javax.swing.JFrame {
          AptitudRelativa= new double[numIndividuos];
          AptitudAcumulada= new double[numIndividuos];
         Rangos= new String[numIndividuos];
-        
+        textArea1.setText( textArea1.getText()+"generacion= "+(i+1)+"\n\n");
         Generar();  
-       
-        grafica2();
-lblCromosoma.setText(Generar_PuntoCruce());
+        
+        textArea1.setText( textArea1.getText()+"cromosoma elegido: "+Aletoriocromosoma() +"\n");
 
+           
+            EliminarMenor();
+        grafica2();
+          
+
+//lblCromosoma.setText(Generar_PuntoCruce(ValorCromosoma[0], ValorCromosoma[1]));
+//           String Pdre1 ="101011";
+//            String Pdre2 ="101000";  
+//            String hijo = Pdre1.substring(0,3)+ Pdre2.substring(3,6);
+//            System.out.println(hijo);
+}
+        double  mayor=ValorFuncion [0];
+        for (int i = 0; i <ValorFuncion.length; i++) 
+        {
+            if(mayor<=ValorFuncion[i])
+             {
+                mayor=ValorFuncion[i]; 
+             }      
+        }
+        txtMayorfuncion.setText(String.valueOf(mayor));
+        
+        
     }//GEN-LAST:event_BtngenerarActionPerformed
 
     private void cmbGradoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbGradoItemStateChanged
@@ -356,6 +427,10 @@ lblCromosoma.setText(Generar_PuntoCruce());
     private void cmbNumCromomasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbNumCromomasItemStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbNumCromomasItemStateChanged
+
+    private void txtMayorfuncionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMayorfuncionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMayorfuncionActionPerformed
 
       private void llenar(){
          String numeroBinario="";
@@ -393,31 +468,75 @@ lblCromosoma.setText(Generar_PuntoCruce());
     }
        double acumulador=0;
        
-     for(int i=0;i<AptitudRelativa.length;i++){
+       
+       for(int i=0;i<AptitudRelativa.length;i++){
      AptitudRelativa[i]=(ValorFuncion[i]/suma);
      AptitudAcumulada[i]=AptitudRelativa[i]*100;
+        
          try {
                 Rangos[i]= "("+decimal.format(acumulador)+" - "+decimal.format(AptitudAcumulada[i]+acumulador)+")";
-                acumulador+=AptitudAcumulada[i];
+                 
+                
+                              acumulador+=AptitudAcumulada[i];
      
      
          } catch (Exception e) {
          }
      
-     }  
+     }
+    
+      }
+      public String Aletoriocromosoma(){
+          double aleatorio;
+          Random m = new Random();
+          aleatorio= m.nextDouble()*100+0;
+          String k = ""; 
+          double acumulador=0;
+          for (int i = 0; i < AptitudAcumulada.length; i++) {
+              if (aleatorio <(AptitudAcumulada[i]+acumulador) && aleatorio > acumulador ) {
+                       String cromoApto = ValorCromosoma[i];
+                        k=cromoApto;
+                        System.out.println("acumulador :" +acumulador+ " acumulador mas aptitud : "+(AptitudAcumulada[i]+acumulador));
+                        System.out.println("aleatorio :" +aleatorio);
+         }
+              acumulador=+AptitudAcumulada[i];
+          }
+          return k;
+           
+      }
+      
+     public void EliminarMenor(){
+     String  mayores []=new String [4];
+   
+    double k = AptitudAcumulada[0];
+        for (int i = 0; i <AptitudAcumulada.length ;i++) 
+        {
+            if(k<=AptitudAcumulada[i])
+             {
+                mayores[i]=ValorCromosoma[i]; 
+                                 System.out.println("mis datos "+mayores[i]);
+
+             }      
+        }
+        
+         
+                  
+     
        
     }
       public  void Generar(){
        suma=0;
           llenar();
        
-//        for(int i=0; i<ValorCromosoma.length; i++){
-//            
-//     System.out.println(ValorCromosoma[i]+" "+ValorDecimal[i]+" "+ValorFuncion[i]+" "+
-//             decimal.format(AptitudRelativa[i])+" "+decimal.format(AptitudAcumulada[i])+" "+(Rangos[i]));
-//     
-//      //generarIndividuos();
-//        }
+        for(int i=0; i<ValorCromosoma.length; i++){
+            textArea1.setText(textArea1.getText()+ValorCromosoma[i]+"   "+ValorDecimal[i]+"   "+ValorFuncion[i]+"   "+
+             decimal.format(AptitudRelativa[i])+"  "+decimal.format(AptitudAcumulada[i])+"  "+(Rangos[i])+"\n");
+          // textArea1.setText( textArea1.getText()+"***cruce con los siguientes puntos de cruce:"+Generar_PuntoCruce()+" \n");
+//    System.out.println(ValorCromosoma[i]+" "+ValorDecimal[i]+" "+ValorFuncion[i]+" "+
+//             decimal.format(AptitudRelativa[i])+" "+decimal.format(AptitudAcumulada[i])+" "+(Rangos[i]) + "\n");
+     
+      generarIndividuos();
+        }
         llenarTabla();
       }
     public  void llenarTabla( ){
@@ -441,6 +560,18 @@ lblCromosoma.setText(Generar_PuntoCruce());
      
         
     }
+    public static String cruce (String Padre1,String  Padre2){
+		
+		int d;
+		Random x= new Random();
+		String P1,P2,hijo;
+		d=x.nextInt(6);
+		
+		System.out.println("Cruce en el " + d );
+
+		hijo = Padre1.substring(0,d) + Padre2.substring(d,6)+"\n"+Padre2.substring(0,d)+Padre1.substring(d,6) ;
+		return hijo;
+	}
     
 //    private void GenerarPuntosCruce(){
 //    int n=6;  //numeros aleatorios
@@ -544,7 +675,7 @@ lblCromosoma.setText(Generar_PuntoCruce());
     for(int i=pila.size()-1;i>=0;i--){
         System.out.print(pila.get(i));
     }
-    System.out.println();
+    
     }
 
 private static String convertirABinario(int a){
@@ -572,19 +703,47 @@ private static String convertirABinario(int a){
                 }
 
 
-private static String Generar_PuntoCruce(){
+private static Object Generar_PuntoCruce(){
     Random rnd= new Random();
    String b="";
-    int randomico1 = (int)(rnd.nextDouble()*6+0);
-int randomico2 = (int)(rnd.nextDouble()*6+0);
+    int randomico1 = (int)(rnd.nextDouble()*5+0);
+int randomico2 = (int)(rnd.nextDouble()*5+0);
     while(randomico1==randomico2){
-randomico1 = (int)(rnd.nextDouble()*6+0);
-randomico2 = (int)(rnd.nextDouble()*6+0);
+randomico1 = (int)(rnd.nextDouble()*5+0);
+randomico2 = (int)(rnd.nextDouble()*5+0);
 //System.out.println("aleatorio "+randomico);
     }
 b=""+randomico1+"  "+randomico2;
-return b;
+int aleatorios  [] = {randomico1,randomico2}; 
+                
+		return aleatorios;
+
+//return b;
 }
+
+//public static String mutar( String c){
+//		
+//		int d,por;
+//		Random x= new Random();
+//		String resultado;
+//		d=x.nextInt(Digitos);
+//		String mutado;
+//		
+//		System.out.println("Mutamos el bit nº " + d  );
+//			
+//		if  (c.valor.codePointAt(d)== 49 ) 
+//			mutado = "0";
+//		else
+//			mutado = "1";
+//			
+//		
+//		resultado = c.valor.substring(0,d) + mutado + c.valor.substring(d,Digitos) ;
+//		
+//		System.out.println(" Mutado ------> " + resultado );
+//		c.valor= resultado;
+//		c.valorDec = tonum(resultado);
+//		return resultado;
+//	}
 
 /**
 	 * Metodo que devuelve el valor de la funcion 
@@ -652,11 +811,15 @@ public static double funcion (double coeficienteX3,double coeficienteX2,double c
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2Graf;
     private javax.swing.JScrollPane jScrollPane1;
+    private java.awt.Label label1;
     private javax.swing.JLabel lblCromosoma;
     public static javax.swing.JTable tablaContenido;
+    private java.awt.TextArea textArea1;
     private javax.swing.JTextField txtA;
     private javax.swing.JTextField txtB;
     private javax.swing.JTextField txtC;
     private javax.swing.JTextField txtD;
+    private javax.swing.JTextField txtGeneracion;
+    private javax.swing.JTextField txtMayorfuncion;
     // End of variables declaration//GEN-END:variables
 }

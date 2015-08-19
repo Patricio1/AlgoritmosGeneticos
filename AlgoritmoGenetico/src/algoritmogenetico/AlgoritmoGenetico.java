@@ -14,8 +14,6 @@ import java.util.Stack;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-
-
 public class AlgoritmoGenetico {
         public static int numIndividuos = 6;
 	public static int numCromosomas = 6;
